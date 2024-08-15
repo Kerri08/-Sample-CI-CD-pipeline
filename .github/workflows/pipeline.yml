@@ -79,7 +79,7 @@ jobs:
 
   notify:
     runs-on: ubuntu-latest
-    if: failure() # Only runs if any previous job fails
+    if: failure() 
     steps:
       - name: Send failure notification to Slack
         uses: slackapi/slack-github-action@v1.23.0

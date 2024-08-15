@@ -76,3 +76,17 @@ jobs:
 
       - name: Notify team of deployment
         run: echo "Deployment to staging complete!"
+
+  notify:
+    runs-on: ubuntu-latest
+    if: failure() # Only runs if any previous job fails
+    steps:
+      - name: Send failure notification to Slack
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          payload: |
+            {
+              "text": "A CI/CD pipeline step has failed. Please check the pipeline for details."
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
